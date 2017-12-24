@@ -1,0 +1,85 @@
+@font-face {
+    font-family: "swiss";
+    src: url("swiss.ttf");
+}
+body {
+    margin: 0; 
+    padding: 0; 
+    background-color: black; 
+    color: #fe9800;
+    height: 100%; 
+}
+footer {
+    position: absolute; 
+    bottom: 0; 
+    width: 100%; 
+    padding: 10px;
+
+    /* include padding in the total width of the footer */
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing:    border-box;
+    -ms-box-sizing:     border-box;
+    -o-box-sizing:      border-box;
+    box-sizing:         border-box;
+}
+.brand {
+    position: relative;
+    font-family: swiss;
+    font-size: 50px;
+    color: #fe9800;
+    padding-right: 10px;
+    background-color: black;
+}
+.copyright {
+    display: inline;
+    height: 100%;
+    color: black;
+    text-transform: uppercase;    
+}
+.copyright span {
+    position: relative;
+    font-family: swiss;
+    font-size: 30px;
+    vertical-align: middle;
+}
+
+/* section styles */
+section { padding: 10px; }
+
+
+/* background colors */
+
+.purple { background-color: #c498c4; }
+.orange { background-color: #fe9800; }
+.blue { background-color: #9999ff; }
+.sandy { background-color: #ffcc66; }
+.red { background-color: #ff3300; }
+
+/* horizontal full-width bars */
+
+.horizontal-bar { border-radius: 50px; height: 50px; }
+.left-corner {
+    float: left;
+    width: 70px;
+    height: 50px;
+    background-color: black;
+}
+.left-corner-space {
+    width: auto;
+    border-radius: 50px 0 0 50px;
+    margin-right: 8px;
+    height: 50px;
+}
+.right-corner {
+    float: right;
+    width: 70px;
+    height: 50px;
+    position: relative;
+    background-color: black;
+}
+.right-corner-space {
+    width: auto;
+    border-radius: 0 50px 50px 0;
+    margin-left: 8px;
+    height: 50px;
+}
