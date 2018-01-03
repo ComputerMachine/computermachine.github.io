@@ -1,11 +1,148 @@
-<!doctype>
-<html>
-    <head>
-        <title>computermachine's portfolio</title>
-        <link rel="stylesheet" href="cm.css">
-    </head>
-    
-    <body>
-        <h1>shut fuk</h1>
-    </body>
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../../../favicon.ico">
+
+    <title>Cover Template for Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="cover.css" rel="stylesheet">
+  </head>
+
+  <body>
+     <div class="site-wrapper">
+
+      <div class="site-wrapper-inner">
+
+        <div class="cover-container">
+
+          <header class="masthead clearfix">
+            <div class="inner">
+              <h3 class="masthead-brand">Cover</h3>
+              <nav class="nav nav-masthead">
+                <a class="nav-link active" href="#">Home</a>
+              </nav>
+            </div>
+          </header>
+            
+            
+<style>
+    .testimonial span {
+        display: inline;
+    }
+    .paragraph-box {
+
+    }
+    .testimonial {
+
+    }
+    #author {
+        color: #ffe;
+    }
+    .btn {
+        opacity: 0.8;
+    }
+</style>
+            
+
+          <main role="main" class="inner cover">
+            <h1 class="cover-heading">JDM Consulting</h1>
+              <p class="lead">Here's some of our testimonials from previous clients:</p>
+              
+            <blockquote class="paragraph-box" class="blockquote">
+                  <div class="testimonial">John created some <span id="scale">very good</span> work for us, 
+                      the code was <span id="beauty">elegant</span>, well documented and very maintainable<span id="extras"></span>. 
+                      He walked me though every step. <span id="again">Will definitely</span> hire again!
+                  </div>
+                <footer class="blockquote-footer" id="author">Ajit Pai</footer>
+            </blockquote>
+              
+
+              
+              <p class="lead">
+                <a href="#" class="btn btn-lg btn-secondary">Contact me</a>
+              </p>
+          </main>
+
+          <footer class="mastfoot">
+            <div class="inner">
+              <p>Copyright &copy; <a href="https://github.com/ComputerMachine/">@ComputerMachine</a>.</p>
+            </div>
+          </footer>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="js/vendor/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+      
+<script type="text/javascript">
+$(function() {
+    console.log("yep");
+    var scale = [
+        "amazing", "incredible", "brilliant",
+        "extravagant", "mind blowing", "unbelievable",
+        "out of this world", "otherworldly", "jaw-dropping"
+        ],
+        beauty = [
+            "beautiful", "gorgeous", "sexy",
+            "very professional", "well written", "just great",
+            "tremendous"
+        ],
+        extra = [
+            ", I can't believe the quality, it's so good!", ". Absolutely great work.", ", stunning work..."
+        ],
+        again = [
+            "No doubt we will", "Can't wait to", "Me want", 
+            "Huge job, on time. WE MUST HAVE HIM.", "Just amazing. Will"
+        ],
+        author = [
+            "Ajit", "Mohammed", "Aryan",
+            "Aditya", "Dhruv", "Kabir",
+            "Krishna", "Zayan", "Advay",
+            "Tejas", "Ishaan", "Sai",
+            "Vihaan", "Advik", "Gautam",
+            "Ansh", "Rudra", "Agastya"
+        ]; 
+    $("#author").text(author[Math.ceil(Math.random()*author.length)]);
+    for (var i=0; i<=4; i++) {
+        var changePlaceholder = Math.ceil(Math.random()*100);
+        if (changePlaceholder % 2 == 0) {
+            console.log(i);
+            switch (i) {
+                case 0:
+                    $("#scale").text(scale[i]);
+                    break;
+                case 1:
+                    $("#beauty").text(beauty[i]);
+                    break;
+                case 2:
+                    $("#extra").text(extra[i]);
+                    break;
+                case 3:
+                    $("#again").text(again[i]);
+                    break;
+            }
+        }
+    }
+});    
+</script>
+      
+      
+  </body>
 </html>
