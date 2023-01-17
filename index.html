@@ -10,29 +10,36 @@
     <body class="container">
         <main role="main" class="flex-shrink-0">
             <div class="container text-center">
-                <h3>TIME UNTIL WARP CORE BREACH:</h3><h2 id="timer">60</h2>
-                <!--<img src="implant.jpg">shits slow as fuck-->
-                <p class="lead">Accepted answer is the exact episode name only.</p>
-                <p>3 clues per episode are available, you lose one point per clue.</p>
-                <p>You are given 60 seconds to answer correctly, you lose a point every 20 seconds.</p>
-                <input type="text" class="form-control form-control-lg" id="answer" placeholder="Episode name">
+                <input type="text" style="margin: 15px;" class="form-control form-control-lg" id="answer" placeholder="Episode name">
 
+                <h4><span id="timer">60</span> seconds remaining.</h4>
+
+                <a id="rules-link" href="#">Rules</a>
+                <div id="rules" style="display:none;">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Accepted answer is the exact episode name only.</li>
+                        <li class="list-group-item">3 clues per episode are available, you lose one point per clue.</li>
+                        <li class="list-group-item">You are given 60 seconds to answer correctly.</li>
+                        <li class="list-group-item">NO CHEATING!</li>
+                      </ul>
+                </div>
                 <hr>
                 <div class="row">
                     <div class="col-sm">
                         <p class="text-muted">change log</p>
-                        <ul class="list-group">
-                            <!--
-                            <li class="list-group-item"><span class="score minus">-1</span> added new clue</li>
-                            <li class="list-group-item"><span class="score minus">-1</span> 20 seconds elapsed</li>
-                            <li class="list-group-item"><span class="score plus">+2</span> correctly answered Season 04 Episode 20 - The Nightwalker</li>
-                            -->
+                        <ul id="changelog" class="list-group">
+                            
+                            <li class="list-group-item"><span class="score minus">-1</span> Added new clue</li>
+                            <li class="list-group-item"><span class="score minus">-1</span> 20 Seconds elapsed</li>
+                            <li class="list-group-item"><span class="score plus">+2</span> Correctly answered Season 04 Episode 20 - The Nightwalker</li>
+                            
                         </ul>
                     </div>
 
                     <div class="col-lg">
                         <audio controls id="audio" src=""></audio> <p>Eligible points: <span style="font-size: 24px" id="points">3</span></p>
-                        <p>Total points accumulated: <span id="total">0</span></p>
+                        <p>Total points accumulated: <span id="total">0</span>/<span id="maxPoints"></span></p>
+                        <p><span id="correctAnswers">0</span> correct answers</p>
                         <button type="button" id="clue" class="btn btn-warning" name="Give me another clue">Give me another clue</button>
                         <button type="button" id="next" class="btn btn-danger" name="I give up, next episode">I give up, next episode</button>
                     </div>
