@@ -5,6 +5,9 @@
 .score {
     float: left !important;
 }
+.score + p {
+    margin: 0 !important;
+}
 .plus {
     font-weight: bold;
     color: green;

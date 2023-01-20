@@ -8,25 +8,26 @@ $(function() {
             console.log("ayep");
         });
     */
-    var timer = 60;
-    var points = 3;
-    var sample = 0;
-    var timerStarted = false;
-    var timerId;
-    var pointArray = [];
-    var episode = data[174]; //var episode = data[Math.floor(Math.random() * data.length-1)];
-    var audio = document.getElementById("audio");
-    var maxPoints = data.length*3;
+    let timer = 60;
+    let points = 3;
+    let sample = 0;
+    let timerStarted = false;
+    let timerId;
+    let totalPoints = 0;
+    let episode = data[174]; //var episode = data[Math.floor(Math.random() * data.length-1)];
+    const audio = document.getElementById("audio");
+    const maxPoints = data.length*3; 
     var correctAnswers = 0;
-
-    console.log("eps", data.length);
     
-    var newEpisode = function() {
-        episode = data[Math.floor(Math.random() * data.length-1)];
-        $("#audio").attr("src", episode.Samples[sample]);
-    };
-
-    var resetAll = function() {
+    let randomizeEpisode = function() {
+        let previousEpisodeIndex = data.indexOf(episode);
+        let newEpisodeIndex = Math.floor(Math.random() * data.length-1);
+        if (newEpisodeIndex == previousEpisodeIndex) {
+            randomizeEpisode();
+        }
+        return data[newEpisodeIndex];
+    },
+    resetAll = function() {
         sample = 0;
         timer = 60;
         points = 3;
@@ -39,92 +40,80 @@ $(function() {
         $("#points").text(points)  // reprint eligible points
         timerStarted = false;
         clearInterval(timerId);  // clear timer so user will have to re enter a title for it to re engage
-    };
-
-    var startCountdown = function() {
+    },
+    startCountdown = function() {
         return setInterval(function() {
             switch (timer) {
-                /*case 40: 
-                    points--; timer--;
-                    break;
-                case 20: 
-                    points--; timer--;
-                    break;*/
                 case 0:
+                    points = 0;
+                    nextEpisode();
                     resetAll();
-                    $("#next").click();
+                    startRound();
+                    break;
                 default:
                     timer--;
             }
             $("#points").text(points);
             $("#timer").text(timer);
         }, 1000);
-    };
-
-    var normalize = function(s) {
+    },
+    normalize = function(s) {
         return s
             .toLowerCase()
-            .replace(/[^\w\s]/g, "")  // remove anything that isn't a word character or a space
-            .replace(/\s+/g, " ")  // replace all one or more space with just one space
-            .trim()  // remove space from start and end
             .normalize("NFD")  // split out accents
-            .replace(/[\u0300-\u036f]/g, "");  // remove accents
-            // .replace(/\b(part\s+)?(i+|\d+)$/, "")  // incase i have to regenerate the list, faggot
-    };
+            .replace(/[\u0300-\u036f]/g, "")  // remove accents
+            .replace(/[^\w\s]/g, "")  // remove anything that isn't a word character or a space
+            .replace(/\s+/g, " ")  // replace one or more spaces with just one space
+            .trim();  // remove space from start and end
+            // .replace(/\b(part\s+)?(i+|\d+)$/, "")  // incase i have to regenerate the list
+    },
+    createChangelog = function(episode) {
+        console.log("timer is: ", timer);
+        const $li = $("<li>", {class: "list-group-item"})
+        let $span =$("<span>", {class: "score"});
+        let $p = $("<p>");
+        switch(points) {
+            case 3:
+            case 2:
+            case 1:
+                $span.addClass("plus");
+                $span.text("+" + points);
+                $p.text("Correctly answered " + episode.Name);
+                break;
+            case 0:
+                $span.text("0");
+                $p.text("Couldn't figure out " + episode.Name);
+                break;
+        }
+        return $li.append($span).append($p);
+    },
+    nextEpisode = function() {
+        console.log("Moving to the next episode...");
 
+        // update changelog
+        $("#changelog").append(createChangelog(episode));
+
+        // randomly choose the next episode
+        episode = randomizeEpisode();
+
+        resetAll(); // reset vars to their default value
+        $("#audio").attr("src", episode.Samples[sample]);
+    },
+    startRound = function() {
+        audio.play();
+        timerStarted = true;
+        timerId = startCountdown();
+    }
 
     $("#maxPoints").text(maxPoints);
     $("#audio").attr("src", episode.Samples[sample]);
 
-    var incorrectChangelog = function(episode) {
-        return $(
-            $("<li>", {
-                class: "list-group-item"
-            })
-        )
-        .append(
-            $("<span>", {
-                class: "score",
-                text: "0"
-            })
-        )
-        .append(
-            $("<p>", {
-                text: "Couldn't figure out " + episode.Name
-            })
-        );
-    };
-
-    var correctChangelog = function(episode) {
-        return $(
-            $("<li>", {
-                class: "list-group-item"
-            })
-        )
-        .append(
-            $("<span>", {
-                class: "score plus",
-                text: "+" + $("#points").text()
-            })
-        )
-        .append(
-            $("<p>", {
-                text: "Correctly answered " + episode.Name
-            })
-        );
-    };
-
-    var changeSamples = function() {
-
-    };
-
     /* user is moving to the next episode */
-    $("#next").on("click", function() {
+     $("#next").on("click", function() {
         console.log("Moving to next episode... ");
-        $("#changelog").append(incorrectChangelog(episode));
-        newEpisode();
-        resetAll();
-        audio.play();
+        points = 0;
+        nextEpisode();
+        startRound();
     });
     
     $("#audio").on("play", function() {
@@ -135,6 +124,7 @@ $(function() {
         $("#audio").off("play");
     });
 
+    // toggle game rules
     $("#rules-link").on("click", function(e) {
         e.preventDefault();
         $("#rules").toggle(500);
@@ -154,20 +144,14 @@ $(function() {
                 .removeClass("is-invalid")
                 .addClass("is-valid");
 
-            // add eligible points to point array
-            pointArray.push(parseInt($("#points").text())); 
-            var totalPoints = pointArray.reduce(function(a, b) { return a+b });
-            $("#total").text(totalPoints);
+            totalPoints += points; $("#total").text(totalPoints);
+            correctAnswers++; $("#correctAnswers").text(correctAnswers);
 
-            correctAnswers++;
-            $("#correctAnswers").text(correctAnswers);
-            $("#changelog").append(correctChangelog(episode));
-
+            // create a timeout so the user can actually see that he/her/them/shem was right
             setTimeout(function() {
                 window.clearInterval(timerId);
-                newEpisode();
-                resetAll();
-                audio.play();
+                nextEpisode();
+                startRound();
             }, 1000);
         }
         else {
